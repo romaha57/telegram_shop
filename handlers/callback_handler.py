@@ -1,4 +1,6 @@
 from loguru import logger
+from telebot import TeleBot
+from telebot.types import CallbackQuery
 
 from handlers.handler import Handler
 from settings.messages import MESSAGES
@@ -6,10 +8,10 @@ from settings.messages import MESSAGES
 
 class CallBackHandler(Handler):
 
-    def __init__(self, bot):
+    def __init__(self, bot: TeleBot):
         super().__init__(bot)
 
-    def pressed_product_btn(self, callback):
+    def pressed_product_btn(self, callback: CallbackQuery) -> None:
         """Отлавливаем нажатие кнопки с товаром и создание заказа"""
 
         self.db.create_order(
@@ -30,8 +32,7 @@ class CallBackHandler(Handler):
     def handle(self):
 
         @self.bot.callback_query_handler(func=lambda callback: True)
-        def callback_handler(callback):
+        def callback_handler(callback: CallbackQuery) -> None:
             product_id = callback.data
-
             if product_id.isdigit():
                 self.pressed_product_btn(callback)

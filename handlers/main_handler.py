@@ -14,7 +14,7 @@ class MainHandler:
         self.callback_handler = CallBackHandler(self.bot)
 
     def handle(self):
-        """Регистрация хендлеров на отлавливания сообщений"""
+        """Регистрация хендлеров на отлавливание сообщений"""
 
         self.command_handler.handle()
         self.all_text_handler.handle()
